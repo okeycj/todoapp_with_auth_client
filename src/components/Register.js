@@ -33,7 +33,7 @@ class Register extends Component {
 	}
 	render() {
 		return (
-			<form className="form-signin text-center col-6" style={{ margin: "200px auto",  }} onSubmit={e => this.submit(e)}>
+			<form className="form-signin text-center col-lg-6 col-md-6 col-sm-12" style={{ margin: "200px auto",  }} onSubmit={e => this.submit(e)}>
 			  { this.state.error 
 			  	? <div className="alert alert-warning" role="alert">
 					{ this.state.error }
