@@ -22,14 +22,23 @@ class Register extends Component {
 
 	submit(e) {
 		e.preventDefault();
+		var btn = document.getElementById('btn')
+		btn.disabled = true;
+		btn.innerHTML = 'Loading...'
 		axios.post('https://todoappauthenticationcj.herokuapp.com/register', {
 			name: this.state.name,
 			email: this.state.email,
 			password: this.state.password
 		}).then(res => {
+			btn.disabled = false;
+			btn.innerHTML = 'Sign in'
 			localStorage.setItem('token', res.data.token);
 			this.props.history.push('/todos');
-		}).catch(err => this.setState({ error: err.response.data }))
+		}).catch(err => {
+			btn.disabled = false;
+			btn.innerHTML = 'Sign in'
+			this.setState({ error: err.response.data })
+		})
 	}
 	render() {
 		return (
@@ -47,7 +56,7 @@ class Register extends Component {
 			  <input type="email" name='email' id="inputEmail" className="form-control" placeholder="Email address" onChange={e => this.change(e)} value={this.state.email}/>
 			  <label htmlFor="inputPassword" className="sr-only">Password</label>
 			  <input type="password" name="password" id="inputPassword" className="form-control" placeholder="Password" onChange={e => this.change(e)} value={this.state.password}/>
-			  <button className="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+			  <button className="btn btn-lg btn-primary btn-block" type="submit" id="btn">Sign in</button>
 			  <p className="mt-5 mb-3 text-muted">Already have an account, <Link to="/">Click Here</Link></p>
 			</form>
 		)
