@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import getJwt from '../helpers/jwt';
 import axios from 'axios'
 
 class Login extends Component {
@@ -17,6 +18,13 @@ class Login extends Component {
 		this.setState({
 			[e.target.name]: e.target.value
 		})
+	}
+
+	componentDidMount() {
+		const jwt = getJwt();
+		if (jwt) {
+			this.props.history.push('/todos');
+		}
 	}
 
 	submit(e) {

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import getJwt from '../helpers/jwt';
 import axios from 'axios'
 
 class Register extends Component {
@@ -14,6 +15,13 @@ class Register extends Component {
 		}
 	}
 	
+	componentDidMount() {
+		const jwt = getJwt();
+		if (jwt) {
+			this.props.history.push('/todos');
+		}
+	}
+
 	change(e) {
 		this.setState({
 			[e.target.name]: e.target.value
